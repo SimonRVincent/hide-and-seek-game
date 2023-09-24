@@ -103,7 +103,7 @@ function SeekerScreen({ setScreen }) {
   useEffect(() => {
     if (hintTimer > 0) {
       const hintInterval = setInterval(() => {
-        setHint(prevHint => (prevHint === 'hotter' ? 'colder' : 'hotter'));
+        setHint(prevHint => (prevHint === '🔥' ? '❄️' : '🔥'));
         setHintTimer(prevTimer => prevTimer - 3);
       }, 3000);
 
@@ -116,7 +116,7 @@ function SeekerScreen({ setScreen }) {
   const handleHintClick = () => {
     if (score >= 40) {
       setScore(prevScore => prevScore - 40);
-      setHint('hotter');  // Starting hint (can be randomized if needed)
+      setHint('🔥');  // Starting hint (can be randomized if needed)
       setHintTimer(10);   // Set for 10 seconds of hints
     }
   };
@@ -136,7 +136,7 @@ function SeekerScreen({ setScreen }) {
         </div>
       ) : (
         <div>
-          {hint && <div className={hint}>{hint}</div>}
+          {hint && <div className="hint">{hint}</div>}
           <button onClick={handleHintClick}>Hint</button>
           <button onClick={handleGiveUp}>Give up</button>
         </div>
