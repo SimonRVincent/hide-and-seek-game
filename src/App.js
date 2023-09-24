@@ -91,10 +91,15 @@ function SeekerScreen({ setScreen }) {
   const [score, setScore] = useState(300);
   const [hint, setHint] = useState(null);
   const [hintTimer, setHintTimer] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (score > 0) setScore(prevScore => prevScore - 1);
+      if (score > 0) {
+        setScore(prevScore => prevScore - 1);
+      } else {
+        setIsGameOver(true);
+      }
     }, 1000);
     return () => clearInterval(interval);
   }, [score]);
@@ -121,7 +126,18 @@ function SeekerScreen({ setScreen }) {
 
   const handleGiveUp = () => {
     setScore(0);
+    setIsGameOver(true);
   };
+
+  if (isGameOver) {
+    return (
+      <Alert variant="danger">
+        Game Over. <br />
+        Score: {score} <br />
+        <Button variant="secondary" size="lg" onClick={() => setScreen('menu')}>Return to Main Menu</Button>
+      </Alert>
+    );
+  }
 
   return (
     <div>
