@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Button, Alert, Badge } from 'react-bootstrap';
+import './App.css';
 
 function App() {
   const [screen, setScreen] = useState('menu');
@@ -126,7 +127,7 @@ function SeekerScreen({ setScreen }) {
     <div>
       <h2>Seek!</h2>
       <p>Score: {score}</p>
-      {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}>{hint}</Alert>}
+      {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
       <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
       <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
       {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}

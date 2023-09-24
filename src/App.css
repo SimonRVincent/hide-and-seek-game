@@ -11,6 +11,9 @@ html, body, #root {
   height: 100%;
 }
 
+.large-emoji {
+  font-size: 15rem;  /* This will make the emoji 5 times the base font size. Adjust as needed. */
+}
 
 button {
   padding: 10px 20px;
