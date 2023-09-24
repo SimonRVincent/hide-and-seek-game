@@ -6,8 +6,8 @@ function App() {
   const [screen, setScreen] = useState('menu');
 
   return (
-    <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
-      <div className="w-50">  {/* This will constrain the content width to 50% of the viewport width. Adjust as needed. */}
+    <Container fluid style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div className="text-center w-50">  {/* Adjusting width as per requirement and adding text-center */}
         {screen === 'menu' && <MainMenu setScreen={setScreen} />}
         {screen === 'choice' && <ChoiceScreen setScreen={setScreen} />}
         {screen === 'lobby' && <LobbyScreen setScreen={setScreen} />}
@@ -45,12 +45,11 @@ function LobbyScreen({ setScreen }) {
     <div>
       <h2>Lobby</h2>
       {/* Dummy player list */}
-      <ul>
+      <ul className='list-unstyled'>
         <li>Player 1 <Badge variant="secondary">You</Badge></li>
         <li>Player 2</li>
         <li>Player 3</li>
         <li>Player 4</li>
-        <li>Player 5</li>
       </ul>
       <Button variant="warning" className="mr-2" onClick={() => setScreen('hider')}>Start as Hider</Button>
       <Button variant="danger" onClick={() => setScreen('seeker')}>Start as Seeker</Button>
