@@ -7,7 +7,7 @@
   background-color: #f4f4f4;
 }
 
-html, body, #root {
+#root {
   height: 100%;
 }
 
@@ -15,17 +15,12 @@ html, body, #root {
   font-size: 15rem;  /* This will make the emoji 5 times the base font size. Adjust as needed. */
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
+.App { /* or whatever the classname of your root container is */
+  height: 100vh; 
 }
 
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  padding: 10px 20px;
+  margin: 10px;
 }

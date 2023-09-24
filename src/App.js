@@ -7,8 +7,9 @@ function App() {
   const [screen, setScreen] = useState('menu');
 
   return (
-    <Container fluid style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <div className="text-center w-50">  {/* Adjusting width as per requirement and adding text-center */}
+    <Container fluid style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>  {/* Adjusting height as per requirement and adding display, justifyContent and alignItems */}
+
+      <div className="text-center">  {/* Adjusting width as per requirement and adding text-center */}
         {screen === 'menu' && <MainMenu setScreen={setScreen} />}
         {screen === 'choice' && <ChoiceScreen setScreen={setScreen} />}
         {screen === 'lobby' && <LobbyScreen setScreen={setScreen} />}
@@ -22,7 +23,7 @@ function App() {
 
 function MainMenu({ setScreen }) {
   return (
-    <div className="bg-light p-5 rounded-lg m-3">
+    <div className="p-5 rounded-lg m-3">
       <h1 className="display-4">Hide and Seek</h1>
       <p className="lead">A fun game to play.</p>  {/* Optional tagline or instructions */}
       <Button variant="primary" onClick={() => setScreen('choice')}>Play</Button>
@@ -131,7 +132,7 @@ function SeekerScreen({ setScreen }) {
 
   if (isGameOver) {
     return (
-      <Alert variant="danger">
+      <Alert variant="success">
         Game Over. <br />
         Score: {score} <br />
         <Button variant="secondary" size="lg" onClick={() => setScreen('menu')}>Return to Main Menu</Button>
@@ -148,6 +149,7 @@ function SeekerScreen({ setScreen }) {
       <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
       {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
     </div>
+    
   );
 }
 
