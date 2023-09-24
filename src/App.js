@@ -1,78 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Button, Alert, Badge } from 'react-bootstrap';
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState('menu'); // renamed for clarity
+  const [screen, setScreen] = useState('menu');
 
   return (
-    <div className="App">
-      {currentScreen === 'menu' && <MainMenu setScreen={setCurrentScreen} />}
-      {currentScreen === 'choice' && <ChoiceScreen setScreen={setCurrentScreen} />}
-      {currentScreen === 'lobby' && <LobbyScreen setScreen={setCurrentScreen} />}
-      {currentScreen === 'hider' && <HiderScreen setScreen={setCurrentScreen} />}
-      {currentScreen === 'seeker' && <SeekerScreen setScreen={setCurrentScreen} />}
-      {/* Add other screens here similarly */}
-    </div>
+    <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
+      <div className="w-50">  {/* This will constrain the content width to 50% of the viewport width. Adjust as needed. */}
+        {screen === 'menu' && <MainMenu setScreen={setScreen} />}
+        {screen === 'choice' && <ChoiceScreen setScreen={setScreen} />}
+        {screen === 'lobby' && <LobbyScreen setScreen={setScreen} />}
+        {screen === 'hider' && <HiderScreen setScreen={setScreen} />}
+        {screen === 'seeker' && <SeekerScreen setScreen={setScreen} />}
+      </div>
+    </Container>
   );
 }
+
 
 function MainMenu({ setScreen }) {
   return (
-    <div>
-      <h1>Hide and Seek</h1>
-      <button onClick={() => setScreen('choice')}>Play</button>
+    <div className="bg-light p-5 rounded-lg m-3">
+      <h1 className="display-4">Hide and Seek</h1>
+      <p className="lead">A fun game to play.</p>  {/* Optional tagline or instructions */}
+      <Button variant="primary" onClick={() => setScreen('choice')}>Play</Button>
     </div>
   );
 }
+
 
 function ChoiceScreen({ setScreen }) {
   return (
     <div>
-      <button onClick={() => setScreen('lobby')}>Create Game</button>
-      <button>Join Game</button> {/* Note: This button doesn't have any onClick functionality yet */}
+      <Button variant="success" className="mr-2" onClick={() => setScreen('lobby')}>Create Game</Button>
+      <Button variant="info">Join Game</Button>
     </div>
   );
 }
 
 function LobbyScreen({ setScreen }) {
+  // For simplicity, we're not fleshing out the lobby fully
   return (
     <div>
-      {/* Mock player list */}
-      <div>You 👑</div>
-      <div>Player 2</div>
-      <div>Player 3</div>
-      <div>Player 4</div>
-      <div>Player 5</div>
-
-      <button onClick={() => setScreen('hider')}>Start as Hider</button>
-      <button onClick={() => setScreen('seeker')}>Start as Seeker</button>
+      <h2>Lobby</h2>
+      {/* Dummy player list */}
+      <ul>
+        <li>Player 1 <Badge variant="secondary">You</Badge></li>
+        <li>Player 2</li>
+        <li>Player 3</li>
+        <li>Player 4</li>
+        <li>Player 5</li>
+      </ul>
+      <Button variant="warning" className="mr-2" onClick={() => setScreen('hider')}>Start as Hider</Button>
+      <Button variant="danger" onClick={() => setScreen('seeker')}>Start as Seeker</Button>
     </div>
   );
 }
 
 function HiderScreen({ setScreen }) {
-  // Here, you'd implement the score increasing logic and other functionalities for the Hider
   const [score, setScore] = useState(0);
   const [isFound, setIsFound] = useState(false);
 
   useEffect(() => {
-    if (isFound) return;  // If the hider is found, don't increase the score
-
     const interval = setInterval(() => {
-      setScore(prevScore => prevScore + 1);
-    }, 1000);  // Increase score by 1 every second
-
-    return () => clearInterval(interval);  // Cleanup on component unmount
+      if (!isFound) setScore(prevScore => prevScore + 1);
+    }, 1000);
+    return () => clearInterval(interval);
   }, [isFound]);
 
   return (
     <div onClick={() => !isFound && setIsFound(true)}>
       {isFound ? (
-        <div>
-          <h2>You've been found!</h2>
+        <Alert variant="success">
+          <Alert.Heading>You've been found!</Alert.Heading>
           <p>Score: {score}</p>
-          <button onClick={() => setScreen('menu')}>Return to Main Menu</button>
-        </div>
+          <Button onClick={() => setScreen('menu')}>Return to Main Menu</Button>
+        </Alert>
       ) : (
         <div>
           <h2>Hide!</h2>
@@ -85,64 +89,51 @@ function HiderScreen({ setScreen }) {
 
 function SeekerScreen({ setScreen }) {
   const [score, setScore] = useState(300);
-  const [hint, setHint] = useState(null);  // 'hotter', 'colder', or null
+  const [hint, setHint] = useState(null);
   const [hintTimer, setHintTimer] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (score > 0) {
-        setScore(prevScore => prevScore - 1);
-      } else {
-        clearInterval(interval);  // End the game if score reaches 0
-      }
+      if (score > 0) setScore(prevScore => prevScore - 1);
     }, 1000);
-
-    return () => clearInterval(interval);  // Cleanup on component unmount
+    return () => clearInterval(interval);
   }, [score]);
 
   useEffect(() => {
-    if (hintTimer > 0) {
-      const hintInterval = setInterval(() => {
+    const hintInterval = setInterval(() => {
+      if (hintTimer > 0) {
         setHint(prevHint => (prevHint === '🔥' ? '❄️' : '🔥'));
         setHintTimer(prevTimer => prevTimer - 3);
-      }, 3000);
-
-      return () => clearInterval(hintInterval);
-    } else {
-      setHint(null);
-    }
+      } else {
+        setHint(null);
+      }
+    }, 3000);
+    return () => clearInterval(hintInterval);
   }, [hintTimer]);
 
   const handleHintClick = () => {
     if (score >= 40) {
       setScore(prevScore => prevScore - 40);
-      setHint('🔥');  // Starting hint (can be randomized if needed)
-      setHintTimer(10);   // Set for 10 seconds of hints
+      setHint('🔥');
+      setHintTimer(10);
     }
   };
 
   const handleGiveUp = () => {
-    setScore(0);  // Set score to 0 if the seeker gives up
+    setScore(0);
   };
 
   return (
     <div>
       <h2>Seek!</h2>
       <p>Score: {score}</p>
-      {score === 0 ? (
-        <div>
-          <p>Your score is: {score}</p>
-          <button onClick={() => setScreen('menu')}>Return to Main Menu</button>
-        </div>
-      ) : (
-        <div>
-          {hint && <div className="hint">{hint}</div>}
-          <button onClick={handleHintClick}>Hint</button>
-          <button onClick={handleGiveUp}>Give up</button>
-        </div>
-      )}
+      {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}>{hint}</Alert>}
+      <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
+      <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
+      {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
     </div>
   );
 }
 
 export default App;
+
