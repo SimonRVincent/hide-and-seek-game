@@ -10,6 +10,7 @@ function App() {
       {currentScreen === 'choice' && <ChoiceScreen setScreen={setCurrentScreen} />}
       {currentScreen === 'lobby' && <LobbyScreen setScreen={setCurrentScreen} />}
       {currentScreen === 'hider' && <HiderScreen setScreen={setCurrentScreen} />}
+      {currentScreen === 'seeker' && <SeekerScreen setScreen={setCurrentScreen} />}
       {/* Add other screens here similarly */}
     </div>
   );
@@ -83,11 +84,63 @@ function HiderScreen({ setScreen }) {
 }
 
 function SeekerScreen({ setScreen }) {
-  // Here, you'd implement the score decreasing logic, hint functionality, and other features for the Seeker
+  const [score, setScore] = useState(300);
+  const [hint, setHint] = useState(null);  // 'hotter', 'colder', or null
+  const [hintTimer, setHintTimer] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (score > 0) {
+        setScore(prevScore => prevScore - 1);
+      } else {
+        clearInterval(interval);  // End the game if score reaches 0
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);  // Cleanup on component unmount
+  }, [score]);
+
+  useEffect(() => {
+    if (hintTimer > 0) {
+      const hintInterval = setInterval(() => {
+        setHint(prevHint => (prevHint === 'hotter' ? 'colder' : 'hotter'));
+        setHintTimer(prevTimer => prevTimer - 3);
+      }, 3000);
+
+      return () => clearInterval(hintInterval);
+    } else {
+      setHint(null);
+    }
+  }, [hintTimer]);
+
+  const handleHintClick = () => {
+    if (score >= 40) {
+      setScore(prevScore => prevScore - 40);
+      setHint('hotter');  // Starting hint (can be randomized if needed)
+      setHintTimer(10);   // Set for 10 seconds of hints
+    }
+  };
+
+  const handleGiveUp = () => {
+    setScore(0);  // Set score to 0 if the seeker gives up
+  };
+
   return (
     <div>
-      Seeker Screen
-      {/* Placeholder for score, hint button, and other UI */}
+      <h2>Seek!</h2>
+      <p>Score: {score}</p>
+      {score === 0 ? (
+        <div>
+          <p>Your score is: {score}</p>
+          <button onClick={() => setScreen('menu')}>Return to Main Menu</button>
+        </div>
+      ) : (
+        <div>
+          {hint && <div className={hint}>{hint}</div>}
+          <button onClick={handleHintClick}>Hint</button>
+          <button onClick={handleGiveUp}>Give up</button>
+        </div>
+      )}
     </div>
   );
 }
