@@ -7,8 +7,7 @@ function App() {
   const [screen, setScreen] = useState('menu');
 
   return (
-    <Container fluid style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-
+    <Container fluid style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>  {/* Adjusting height as per requirement and adding display, justifyContent and alignItems */}
 
       <div className="text-center">  {/* Adjusting width as per requirement and adding text-center */}
         {screen === 'menu' && <MainMenu setScreen={setScreen} />}
