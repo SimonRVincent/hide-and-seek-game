@@ -7,7 +7,8 @@ function App() {
   const [screen, setScreen] = useState('menu');
 
   return (
-    <Container fluid style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>  {/* Adjusting height as per requirement and adding display, justifyContent and alignItems */}
+    <Container fluid style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+
 
       <div className="text-center">  {/* Adjusting width as per requirement and adding text-center */}
         {screen === 'menu' && <MainMenu setScreen={setScreen} />}
@@ -133,7 +134,7 @@ function SeekerScreen({ setScreen }) {
   if (isGameOver) {
     return (
       <Alert variant="success">
-        Game Over. <br />
+        Game Over <br />
         Score: {score} <br />
         <Button variant="secondary" size="lg" onClick={() => setScreen('menu')}>Return to Main Menu</Button>
       </Alert>
