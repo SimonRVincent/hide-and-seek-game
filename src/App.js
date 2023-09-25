@@ -91,37 +91,46 @@ function HiderScreen({ setScreen }) {
 function SeekerScreen({ setScreen }) {
   const [score, setScore] = useState(300);
   const [hint, setHint] = useState(null);
-  const [hintTimer, setHintTimer] = useState(0);
+  const [hintDuration, setHintDuration] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (score > 0) {
-        setScore(prevScore => prevScore - 1);
-      } else {
-        setIsGameOver(true);
-      }
+    const scoreInterval = setInterval(() => {
+      if (score > 0) setScore(prevScore => prevScore - 1);
+      if (score === 0) setIsGameOver(true);
     }, 1000);
-    return () => clearInterval(interval);
+
+    return () => clearInterval(scoreInterval);
   }, [score]);
 
   useEffect(() => {
-    const hintInterval = setInterval(() => {
-      if (hintTimer > 0) {
+    if (hintDuration && hintDuration > 0) {
+      const countdown = setInterval(() => {
+        setHintDuration(prevDuration => prevDuration - 10);
+      }, 10);
+
+      return () => clearInterval(countdown);
+    } else {
+      setHint(null); // stop showing the hint when the duration is over
+    }
+  }, [hintDuration]);
+
+  useEffect(() => {
+    if (hint) {
+      // Toggle hint every 3.5 seconds
+      const toggleHint = setInterval(() => {
         setHint(prevHint => (prevHint === '🔥' ? '❄️' : '🔥'));
-        setHintTimer(prevTimer => prevTimer - 3);
-      } else {
-        setHint(null);
-      }
-    }, 3000);
-    return () => clearInterval(hintInterval);
-  }, [hintTimer]);
+      }, 3500);
+
+      return () => clearInterval(toggleHint);
+    }
+  }, [hint]);
 
   const handleHintClick = () => {
     if (score >= 40) {
       setScore(prevScore => prevScore - 40);
       setHint('🔥');
-      setHintTimer(10);
+      setHintDuration(10000);
     }
   };
 
@@ -140,18 +149,33 @@ function SeekerScreen({ setScreen }) {
     );
   }
 
+  if (hint) {
+    return (
+      <div>
+        <h2>Hint Time Left: {(hintDuration / 1000).toFixed(2)}s</h2>
+        <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2>Seek!</h2>
-      <p>Score: {score}</p>
-      {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
-      <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
-      <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
-      {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
+      <div>
+        <h2>Seek!</h2>
+        <p>Score: {score}</p>
+      </div>
+      <div>
+        <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
+      </div>
+      <div>
+        <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
+        {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
+      </div>
     </div>
-    
   );
 }
+
+
 
 export default App;
 
