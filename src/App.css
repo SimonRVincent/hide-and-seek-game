@@ -31,4 +31,24 @@ button {
   margin: 0.4rem;  /* Provides some spacing between icons */
 }
 
+.highlighted {
+  transition: background-color 0.3s ease;
+  background-color: yellow;
+}
+
+.flash {
+  animation: flashAnimation 1s linear infinite;
+}
+
+@keyframes flashAnimation {
+  0%, 100% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: transparent;
+  }
+}
+
+
+
 
