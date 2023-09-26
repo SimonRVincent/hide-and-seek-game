@@ -37,7 +37,7 @@ function MainMenu({ setScreen }) {
       <h1 className="display-4">Hide and Seek</h1>
       <p className="lead">A fun game to play.</p>{" "}
       {/* Optional tagline or instructions */}
-      <Button variant="primary" onClick={() => setScreen("choice")}>
+      <Button size='lg' variant="primary" onClick={() => setScreen("choice")}>
         Play
       </Button>
     </div>
@@ -231,9 +231,9 @@ function HiderScreen({ setScreen }) {
     <div onClick={() => !isFound && setIsFound(true)}>
       {isFound ? (
         <Alert variant="success">
-          <Alert.Heading>You've been found!</Alert.Heading>
-          <p>Score: {score}</p>
-          <Button onClick={() => setScreen("menu")}>Return to Main Menu</Button>
+          <Alert.Heading className="display-4">You've been found!</Alert.Heading>
+          <p className="display-6">Score: {score}</p>
+          <Button size='lg' onClick={() => setScreen("menu")}>Return to Main Menu</Button>
         </Alert>
       ) : (
         <div>
@@ -260,7 +260,7 @@ function HiderScreen({ setScreen }) {
               ))}
           </div>
           <div className="fixed-bottom mb-3">
-            <Button variant="dark" className="mt-2" onClick={handleGiveUp}>
+            <Button size='lg' variant="dark" className="mt-2" onClick={handleGiveUp}>
               Give up
             </Button>{" "}
             {/* "Give up" button */}
@@ -350,8 +350,8 @@ function SeekerScreen({ setScreen }) {
   if (isGameOver) {
     return (
       <Alert variant="success">
-        Game Over <br />
-        Score: {score} <br />
+        <p className="display-4">Game Over</p>
+        <p className="display-6">Score: {score}</p>
         <Button variant="secondary" size="lg" onClick={() => setScreen("menu")}>
           Return to Main Menu
         </Button>
@@ -413,7 +413,7 @@ function SeekerScreen({ setScreen }) {
             Give up
           </Button>
           {score === 0 && (
-            <Button onClick={() => setScreen("menu")} className="mt-2">
+            <Button size='lg' onClick={() => setScreen("menu")} className="mt-2">
               Return to Main Menu
             </Button>
           )}
