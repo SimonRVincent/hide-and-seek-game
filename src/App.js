@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Button, Alert, Badge } from "react-bootstrap";
+import { Container, Button, ButtonGroup, Alert, Badge } from "react-bootstrap";
 import "./App.css";
 
 function App() {
@@ -114,7 +114,7 @@ function LobbyScreen({ setScreen }) {
       </div>
       {/* Dummy player list */}
       <div className="mb-5">
-        <ul className="list-unstyled display-6" style={{ paddingLeft: '15px' }}>
+        <ul className="list-unstyled display-6" style={{ paddingLeft: "15px" }}>
           {["Player 1", "Player 2", "Player 3", "Player 4"].map(
             (player, index) => (
               <li
@@ -151,19 +151,39 @@ function LobbyScreen({ setScreen }) {
 
       <Button
         variant="warning"
-        className="mr-2"
+        className="mr-2 invisibleButton"
         onClick={() => setScreen("hider")}
-        style={{ visibility: "hidden", fontSize: "1.5em" }}
+        style={{ opacity: 0 }}
+        onMouseOver={(e) => (e.target.style.opacity = 0.5)}
+        onMouseOut={(e) => (e.target.style.opacity = 0)}
       >
         Start as Hider
       </Button>
       <Button
         variant="danger"
+        className="invisibleButton"
         onClick={() => setScreen("seeker")}
-        style={{ visibility: "hidden", fontSize: "1.5em" }}
+        style={{ opacity: 0 }}
+        onMouseOver={(e) => (e.target.style.opacity = 0.5)}
+        onMouseOut={(e) => (e.target.style.opacity = 0)}
       >
         Start as Seeker
       </Button>
+
+      <div className="fixed-bottom mb-4">
+        <div className="mt-4 mb-2">Choose Game Length:</div>
+        <ButtonGroup aria-label="Game Lengths">
+          <Button variant="outline-primary">5 mins</Button>
+          <Button variant="outline-primary">7 mins</Button>
+          <Button variant="outline-primary">10 mins</Button>
+        </ButtonGroup>
+
+        <div className="mt-3">
+          <Button variant="success" size="lg">
+            Start Game
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
