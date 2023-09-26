@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [screen, setScreen] = useState('menu');
-
+  
   return (
     <Container fluid style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>  {/* Adjusting height as per requirement and adding display, justifyContent and alignItems */}
 
@@ -62,6 +62,7 @@ function LobbyScreen({ setScreen }) {
 function HiderScreen({ setScreen }) {
   const [score, setScore] = useState(0);
   const [isFound, setIsFound] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -70,9 +71,17 @@ function HiderScreen({ setScreen }) {
     return () => clearInterval(interval);
   }, [isFound]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowAlert(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+}, []);
+
   const [players, setPlayers] = useState([
     { id: 1, icon: '👤', found: false },
-    { id: 2, icon: '👥', found: false },
+    { id: 2, icon: '👽', found: false },
     { id: 3, icon: '👦', found: false },
     { id: 4, icon: '👧', found: false },
   ]);
@@ -93,8 +102,11 @@ function HiderScreen({ setScreen }) {
         </Alert>
       ) : (
         <div>
-          <h2>Hide!</h2>
-          <p>Score: {score}</p>
+          <div className='fixed-top mt-4'>
+          <h1 className='display-3 fw-bold'>Hide!</h1>
+          <p className='display-4'>Score: {score}</p>
+          {showAlert && <Alert variant='info'>Get the highest score by hiding for as long as possible!</Alert>}  
+          </div>
           <div className="players">
             {players.filter(player => !player.found).map(player => (
               <span key={player.id} className="player-icon" onClick={() => handlePlayerClick(player.id)}>
@@ -114,6 +126,7 @@ function SeekerScreen({ setScreen }) {
   const [hint, setHint] = useState(null);
   const [hintDuration, setHintDuration] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
     const scoreInterval = setInterval(() => {
@@ -146,6 +159,14 @@ function SeekerScreen({ setScreen }) {
       return () => clearInterval(toggleHint);
     }
   }, [hint]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowAlert(false);
+    }, 10000);
+  
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleHintClick = () => {
     if (score >= 40) {
@@ -198,7 +219,7 @@ function SeekerScreen({ setScreen }) {
       <div className='fixed-top mt-4'>
         <h1 className='display-3 fw-bold'>Seek!</h1>
         <p className='display-4'>Score: {score}</p>
-        <Alert variant='info' className='mt-2'>Find all the hiders before your score drops to 0!</Alert>
+        {showAlert && <Alert variant='info' className='mt-2'>Find all the hiders before your score drops to 0!</Alert>}
       </div>
     
       <div className="players">
