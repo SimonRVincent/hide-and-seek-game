@@ -209,10 +209,10 @@ function SeekerScreen({ setScreen }) {
       <div className='fixed-bottom mb-3'>
       <div className='mb-5'>
         {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
-        <Button variant="primary" onClick={handleHintClick}>Hint<br/>(-40pts)</Button>
+        <Button variant="primary" size="lg" onClick={handleHintClick}>Hint<br/>(-40pts)</Button>
       </div>
       <div>
-        <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
+        <Button variant="dark" size="lg" onClick={handleGiveUp}>Give up</Button>
         {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
       </div>
       </div>

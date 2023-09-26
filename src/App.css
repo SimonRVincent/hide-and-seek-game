@@ -25,5 +25,10 @@ button {
   margin: 10px;
 }
 
+.player-icon {
+  font-size: 3rem;  /* Adjust this value to your liking */
+  cursor: pointer; 
+  margin: 0.4rem;  /* Provides some spacing between icons */
+}
 
 
