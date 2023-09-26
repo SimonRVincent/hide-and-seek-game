@@ -98,33 +98,52 @@ function LobbyScreen({ setScreen }) {
     }
   }, [intervalTime, isFlashing, highlightedPlayer]);
 
+  const playerEmojis = {
+    "Player 1": "👤",
+    "Player 2": "👽",
+    "Player 3": "👦",
+    "Player 4": "👧",
+    // ... Add more players and their emojis if necessary
+  };
+
   // For simplicity, we're not fleshing out the lobby fully
   return (
     <div>
-      <h2>Lobby</h2>
+      <div className="fixed-top mt-4">
+        <h1 className="display-3 fw-bold">Lobby</h1>
+      </div>
       {/* Dummy player list */}
-      <ul className="list-unstyled">
-        {["Player 1", "Player 2", "Player 3", "Player 4"].map(
-          (player, index) => (
-            <li
-              key={index}
-              className={
-                highlightedPlayer === index && isFlashing && flashToggle
-                  ? "flash"
-                  : highlightedPlayer === index
-                  ? "highlighted"
-                  : ""
-              }
-            >
-              {player} {index === 0 && <Badge variant="secondary">You</Badge>}
-            </li>
-          )
-        )}
-      </ul>
+      <div className="mb-5">
+        <ul className="list-unstyled display-6" style={{ paddingLeft: '15px' }}>
+          {["Player 1", "Player 2", "Player 3", "Player 4"].map(
+            (player, index) => (
+              <li
+                key={index}
+                className={
+                  highlightedPlayer === index && isFlashing && flashToggle
+                    ? "flash"
+                    : highlightedPlayer === index
+                    ? "highlighted"
+                    : ""
+                }
+              >
+                {playerEmojis[player]} {player}
+                {index === 0 ? (
+                  <Badge variant="secondary">You</Badge>
+                ) : (
+                  <Badge variant="transparent" style={{ visibility: "hidden" }}>
+                    You
+                  </Badge>
+                )}
+              </li>
+            )
+          )}
+        </ul>
+      </div>
 
       <div className="seekerChosen">
         {chosenSeeker !== null && (
-          <span style={{ fontSize: "1.5em", color: "red" }}>
+          <span className="display-6" style={{ color: "red" }}>
             Player {highlightedPlayer + 1} is the Seeker
           </span>
         )}
