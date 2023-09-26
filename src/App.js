@@ -70,6 +70,19 @@ function HiderScreen({ setScreen }) {
     return () => clearInterval(interval);
   }, [isFound]);
 
+  const [players, setPlayers] = useState([
+    { id: 1, icon: '👤', found: false },
+    { id: 2, icon: '👥', found: false },
+    { id: 3, icon: '👦', found: false },
+    { id: 4, icon: '👧', found: false },
+  ]);
+
+  const handlePlayerClick = (playerId) => {
+    setPlayers(players.map(player =>
+      player.id === playerId ? { ...player, found: true } : player
+    ));
+  };
+
   return (
     <div onClick={() => !isFound && setIsFound(true)}>
       {isFound ? (
@@ -82,11 +95,19 @@ function HiderScreen({ setScreen }) {
         <div>
           <h2>Hide!</h2>
           <p>Score: {score}</p>
+          <div className="players">
+            {players.filter(player => !player.found).map(player => (
+              <span key={player.id} className="player-icon" onClick={() => handlePlayerClick(player.id)}>
+                {player.icon}
+              </span>
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
 }
+
 
 function SeekerScreen({ setScreen }) {
   const [score, setScore] = useState(300);
@@ -139,6 +160,20 @@ function SeekerScreen({ setScreen }) {
     setIsGameOver(true);
   };
 
+  // Initial list of players (all hiders)
+  const [players, setPlayers] = useState([
+    { id: 1, icon: '👤', found: false },
+    { id: 2, icon: '👥', found: false },
+    { id: 3, icon: '👦', found: false },
+    { id: 4, icon: '👧', found: false },
+  ]);
+
+  const handlePlayerClick = (playerId) => {
+    setPlayers(players.map(player =>
+      player.id === playerId ? { ...player, found: true } : player
+    ));
+  };
+
   if (isGameOver) {
     return (
       <Alert variant="success">
@@ -164,7 +199,15 @@ function SeekerScreen({ setScreen }) {
         <h2>Seek!</h2>
         <p>Score: {score}</p>
       </div>
+      <div className="players">
+        {players.filter(player => !player.found).map(player => (
+          <span key={player.id} className="player-icon" onClick={() => handlePlayerClick(player.id)}>
+            {player.icon}
+          </span>
+        ))}
+      </div>
       <div>
+        {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
         <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
       </div>
       <div>
@@ -174,6 +217,12 @@ function SeekerScreen({ setScreen }) {
     </div>
   );
 }
+
+
+
+
+
+
 
 
 
