@@ -87,7 +87,6 @@ function LobbyScreen({ setScreen }) {
               setChosenSeeker(highlightedPlayer);
               clearInterval(roulette);
             }
-            
 
             clearInterval(roulette);
           }
@@ -125,7 +124,9 @@ function LobbyScreen({ setScreen }) {
 
       <div className="seekerChosen">
         {chosenSeeker !== null && (
-          <span>{`Player ${chosenSeeker + 2} is the Seeker`}</span>
+          <span style={{ fontSize: "1.5em", color: "red" }}>
+            Player {highlightedPlayer + 1} is the Seeker
+          </span>
         )}
       </div>
 
@@ -133,10 +134,15 @@ function LobbyScreen({ setScreen }) {
         variant="warning"
         className="mr-2"
         onClick={() => setScreen("hider")}
+        style={{ visibility: "hidden", fontSize: "1.5em" }}
       >
         Start as Hider
       </Button>
-      <Button variant="danger" onClick={() => setScreen("seeker")}>
+      <Button
+        variant="danger"
+        onClick={() => setScreen("seeker")}
+        style={{ visibility: "hidden", fontSize: "1.5em" }}
+      >
         Start as Seeker
       </Button>
     </div>
