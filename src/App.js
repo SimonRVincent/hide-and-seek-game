@@ -163,7 +163,7 @@ function SeekerScreen({ setScreen }) {
   // Initial list of players (all hiders)
   const [players, setPlayers] = useState([
     { id: 1, icon: '👤', found: false },
-    { id: 2, icon: '👥', found: false },
+    { id: 2, icon: '👽', found: false },
     { id: 3, icon: '👦', found: false },
     { id: 4, icon: '👧', found: false },
   ]);
@@ -195,8 +195,8 @@ function SeekerScreen({ setScreen }) {
 
   return (
     <div>
-      <div>
-        <h2>Seek!</h2>
+      <div className='fixed-top mt-3'>
+        <h1>Seek!</h1>
         <p>Score: {score}</p>
       </div>
       <div className="players">
@@ -206,13 +206,15 @@ function SeekerScreen({ setScreen }) {
           </span>
         ))}
       </div>
-      <div>
+      <div className='fixed-bottom mb-3'>
+      <div className='mb-5'>
         {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
-        <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint<br/>(-40pts)</Button>
+        <Button variant="primary" onClick={handleHintClick}>Hint<br/>(-40pts)</Button>
       </div>
       <div>
         <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
         {score === 0 && <Button onClick={() => setScreen('menu')} className="mt-2">Return to Main Menu</Button>}
+      </div>
       </div>
     </div>
   );
