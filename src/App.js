@@ -187,7 +187,7 @@ function SeekerScreen({ setScreen }) {
   if (hint) {
     return (
       <div>
-        <h2>Hint Time Left: {(hintDuration / 1000).toFixed(2)}s</h2>
+        <h2>Hint Time Left: {(hintDuration / 1000).toFixed(1)}s</h2>
         <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>
       </div>
     );
@@ -195,10 +195,12 @@ function SeekerScreen({ setScreen }) {
 
   return (
     <div>
-      <div className='fixed-top mt-3'>
-        <h1>Seek!</h1>
-        <p>Score: {score}</p>
+      <div className='fixed-top mt-4'>
+        <h1 className='display-3 fw-bold'>Seek!</h1>
+        <p className='display-4'>Score: {score}</p>
+        <Alert variant='info' className='mt-2'>Find all the hiders before your score drops to 0!</Alert>
       </div>
+    
       <div className="players">
         {players.filter(player => !player.found).map(player => (
           <span key={player.id} className="player-icon" onClick={() => handlePlayerClick(player.id)}>
