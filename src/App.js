@@ -208,7 +208,7 @@ function SeekerScreen({ setScreen }) {
       </div>
       <div>
         {hint && <Alert variant={hint === '🔥' ? 'danger' : 'info'}><span className="large-emoji">{hint}</span></Alert>}
-        <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint</Button>
+        <Button variant="primary" className="mr-2" onClick={handleHintClick}>Hint<br/>(-40pts)</Button>
       </div>
       <div>
         <Button variant="dark" onClick={handleGiveUp}>Give up</Button>
