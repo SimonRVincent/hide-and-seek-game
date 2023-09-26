@@ -242,7 +242,7 @@ function HiderScreen({ setScreen }) {
             <p className="display-4">Score: {score}</p>
             {showAlert && (
               <Alert variant="info">
-                Get the highest score by hiding for as long as possible!
+                <p className="fs-4">Get the highest score by hiding for as long as possible!</p>
               </Alert>
             )}
           </div>
@@ -377,7 +377,7 @@ function SeekerScreen({ setScreen }) {
         <p className="display-4">Score: {score}</p>
         {showAlert && (
           <Alert variant="info" className="mt-2">
-            Find all the hiders before your score drops to 0!
+            <p className="fs-4">Find all the hiders before your score drops to 0!</p>
           </Alert>
         )}
       </div>
