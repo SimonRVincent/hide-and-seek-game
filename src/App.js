@@ -6,6 +6,10 @@ import "./App.css";
 function App() {
   const [screen, setScreen] = useState("menu");
 
+  const handleNameEntered = (name) => {
+    setScreen('choice');
+  }
+
   return (
     <Container
       fluid
@@ -22,6 +26,7 @@ function App() {
         {" "}
         {/* Adjusting width as per requirement and adding text-center */}
         {screen === "menu" && <MainMenu setScreen={setScreen} />}
+        {screen === "enterName" && <EnterNameScreen onContinue={handleNameEntered} />}
         {screen === "choice" && <ChoiceScreen setScreen={setScreen} />}
         {screen === "lobby" && <LobbyScreen setScreen={setScreen} />}
         {screen === "hider" && <HiderScreen setScreen={setScreen} />}
@@ -35,12 +40,32 @@ function MainMenu({ setScreen }) {
   return (
     <div className="p-5 rounded-lg m-3">
       <h1 className="display-4">Hide and Seek</h1>
-      <p className="lead">A fun game to play.</p>{" "}
-      {/* Optional tagline or instructions */}
-      <Button size='lg' variant="primary" onClick={() => setScreen("choice")}>
+      <p className="lead">A fun game to play.</p>
+      <Button size='lg' variant="primary" onClick={() => setScreen("enterName")}>
         Play
       </Button>
     </div>
+  );
+}
+
+function EnterNameScreen({ onContinue }) {
+  const [tempName, setTempName] = useState('');
+
+  return (
+      <div>
+          <h2>Enter Your Name</h2>
+          <div>
+          <input 
+              type="text" 
+              value={tempName} 
+              onChange={(e) => setTempName(e.target.value)} 
+              placeholder="Your Name"
+          />
+          </div>
+          <div>
+          <Button size="lg" variant="primary" onClick={() => onContinue(tempName)}>Continue</Button>
+          </div>
+      </div>
   );
 }
 
@@ -99,10 +124,10 @@ function LobbyScreen({ setScreen }) {
   }, [intervalTime, isFlashing, highlightedPlayer]);
 
   const playerEmojis = {
-    "Player 1": "👤",
-    "Player 2": "👽",
-    "Player 3": "👦",
-    "Player 4": "👧",
+    "Simon": "👤",
+    "Katie": "👽",
+    "Hala": "👧",
+    "Nayera": "👦",
     // ... Add more players and their emojis if necessary
   };
 
@@ -115,7 +140,7 @@ function LobbyScreen({ setScreen }) {
       {/* Dummy player list */}
       <div className="mb-5">
         <ul className="list-unstyled display-6" style={{ paddingLeft: "15px" }}>
-          {["Player 1", "Player 2", "Player 3", "Player 4"].map(
+          {["Simon", "Katie", "Hala", "Nayera"].map(
             (player, index) => (
               <li
                 key={index}
@@ -170,7 +195,7 @@ function LobbyScreen({ setScreen }) {
         Start as Seeker
       </Button>
 
-      <div className="fixed-bottom mb-4">
+      <div className="mb-4">
         <div className="mt-4 mb-2">Choose Game Length:</div>
         <ButtonGroup aria-label="Game Lengths">
           <Button variant="outline-primary">5 mins</Button>
