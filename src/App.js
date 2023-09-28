@@ -252,12 +252,45 @@ function HiderScreen({ setScreen }) {
     );
   };
 
+  const tauntSound = new Audio('/Mario-coin-sound.mp3');
+
+  const playTauntSound = () => {
+    tauntSound.play();
+  }
+
+  const increaseScore = () => {
+    setScore(prevScore => prevScore + 20);
+  }
+
+  const handleTaunt = () => {
+    playTauntSound();
+    increaseScore();
+  }
+
+
+    // Step 1: Exclude the first player
+const remainingPlayers = players.slice(1);
+
+// Step 2: Generate random scores for the remaining players
+remainingPlayers.forEach(player => {
+    player.displayScore = Math.floor(Math.random() * 300);
+});
+
   return (
-    <div onClick={() => !isFound && setIsFound(true)}>
+    <div>
       {isFound ? (
         <Alert variant="success">
           <Alert.Heading className="display-4">You've been found!</Alert.Heading>
-          <p className="display-6">Score: {score}</p>
+          <p className="display-6">Your Score: {score}</p>
+        
+        <ul className="list-unstyled">
+          <li className="scoreBoardList">Your Friend's Scores:</li>
+            {remainingPlayers.map(player => (
+                <li key={player.id} className="scoreBoardList">
+                    {player.icon} {player.displayScore} pts
+                </li>
+            ))}
+        </ul>
           <Button size='lg' onClick={() => setScreen("menu")}>Return to Main Menu</Button>
         </Alert>
       ) : (
@@ -283,6 +316,11 @@ function HiderScreen({ setScreen }) {
                   {player.icon}
                 </span>
               ))}
+          </div>
+          <div>
+          <Button size="lg" onClick={handleTaunt} className="mt-5">
+        Taunt <br /> (+20pts)
+      </Button>
           </div>
           <div className="fixed-bottom mb-3">
             <Button size='lg' variant="dark" className="mt-2" onClick={handleGiveUp}>
@@ -372,11 +410,31 @@ function SeekerScreen({ setScreen }) {
     );
   };
 
+  // Step 1: Exclude the first player
+const remainingPlayers = players.slice(1);
+
+// Step 2: Generate random scores for the remaining players
+remainingPlayers.forEach(player => {
+    player.displayScore = Math.floor(Math.random() * 300);
+});
+
+
   if (isGameOver) {
     return (
       <Alert variant="success">
         <p className="display-4">Game Over</p>
-        <p className="display-6">Score: {score}</p>
+        <p className="display-6">Your Score: {score}</p>
+        
+    <ul className="list-unstyled">
+      <li className="scoreBoardList">Your Friend's Scores:</li>
+      <li>Your Friend's </li>
+        {remainingPlayers.map(player => (
+            <li key={player.id} className="scoreBoardList">
+                {player.icon} {player.displayScore} pts
+            </li>
+        ))}
+    </ul>
+
         <Button variant="secondary" size="lg" onClick={() => setScreen("menu")}>
           Return to Main Menu
         </Button>
