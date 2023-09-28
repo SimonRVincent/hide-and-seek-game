@@ -268,7 +268,7 @@ function HiderScreen({ setScreen }) {
   }
 
 
-    // Step 1: Exclude the first player
+    // Step 1: Exclude the first player (for demo reasons)
 const remainingPlayers = players.slice(1);
 
 // Step 2: Generate random scores for the remaining players
