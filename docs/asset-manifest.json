@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.dc69d970.css",
-    "main.js": "/static/js/main.d0e945b0.js",
-    "static/js/787.a7a77a7f.chunk.js": "/static/js/787.a7a77a7f.chunk.js",
-    "index.html": "/index.html",
-    "main.dc69d970.css.map": "/static/css/main.dc69d970.css.map",
-    "main.d0e945b0.js.map": "/static/js/main.d0e945b0.js.map",
-    "787.a7a77a7f.chunk.js.map": "/static/js/787.a7a77a7f.chunk.js.map"
+    "main.css": "/hide-and-seek-game/static/css/main.dc69d970.css",
+    "main.js": "/hide-and-seek-game/static/js/main.73ef393a.js",
+    "static/js/787.a7a77a7f.chunk.js": "/hide-and-seek-game/static/js/787.a7a77a7f.chunk.js",
+    "index.html": "/hide-and-seek-game/index.html",
+    "main.dc69d970.css.map": "/hide-and-seek-game/static/css/main.dc69d970.css.map",
+    "main.73ef393a.js.map": "/hide-and-seek-game/static/js/main.73ef393a.js.map",
+    "787.a7a77a7f.chunk.js.map": "/hide-and-seek-game/static/js/787.a7a77a7f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dc69d970.css",
-    "static/js/main.d0e945b0.js"
+    "static/js/main.73ef393a.js"
   ]
 }
