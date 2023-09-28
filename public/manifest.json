@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Hide and Seek",
+  "name": "hide-and-seek-game",
+  "homepage": "https://SimonRVincent.github.io/hide-and-seek-game",
+  "description": "A game of hide and seek",
+  "version": "1.0.0",
   "icons": [
     {
       "src": "favicon.ico",
