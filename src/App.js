@@ -106,7 +106,7 @@ function ChoiceScreen({ setScreen }) {
           </Button>
         </>
       ) : (
-        <p className="display-4">Joining Now...</p>
+        <p className="display-3">You Win!</p>
       )}
     </div>
   );
