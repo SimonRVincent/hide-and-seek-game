@@ -252,7 +252,8 @@ function HiderScreen({ setScreen }) {
     );
   };
 
-  const tauntSound = new Audio('/Mario-coin-sound.mp3');
+  const tauntSound = new Audio(process.env.PUBLIC_URL + '/Mario-coin-sound.mp3');
+
 
   const playTauntSound = () => {
     tauntSound.play();
