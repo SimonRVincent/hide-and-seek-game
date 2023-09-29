@@ -41,7 +41,6 @@ function MainMenu({ setScreen }) {
   return (
     <div className="p-5 rounded-lg m-3">
       <img src={logo} alt="App Logo" className="app-logo" />
-      <h1 className="display-4">Hide n' Heat</h1>
       <p className="lead">Hide and seek with some twists!</p>
       <Button size='lg' variant="primary" onClick={() => setScreen("enterName")}>
         Play
