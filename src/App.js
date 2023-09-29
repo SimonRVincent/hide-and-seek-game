@@ -71,22 +71,47 @@ function EnterNameScreen({ onContinue }) {
 }
 
 function ChoiceScreen({ setScreen }) {
+
+  const [joining, setJoining] = useState(false);
+
+  const handleJoinClick = () => {
+    setJoining(true);
+  };
+
+  const handleScreenClick = () => {
+    if (joining) {
+      setJoining(false);
+      setScreen("lobby");
+    }
+  };
+
   return (
-    <div>
-      <Button
-        variant="success"
-        className="mr-2"
-        size="lg"
-        onClick={() => setScreen("lobby")}
-      >
-        Create Game
-      </Button>
-      <Button variant="info" size="lg">
-        Join Game
-      </Button>
+    <div onClick={handleScreenClick}>
+      {!joining ? (
+        <>
+          <Button
+            variant="success"
+            className="mr-2"
+            size="lg"
+            onClick={() => setScreen("lobby")}
+          >
+            Create Game
+          </Button>
+          <Button 
+            variant="info" 
+            size="lg" 
+            onClick={handleJoinClick}
+          >
+            Join Game
+          </Button>
+        </>
+      ) : (
+        <p className="display-4">Joining Now...</p>
+      )}
     </div>
   );
 }
+
 
 function LobbyScreen({ setScreen }) {
   const [highlightedPlayer, setHighlightedPlayer] = useState(0);
