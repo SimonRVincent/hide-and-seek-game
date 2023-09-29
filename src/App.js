@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Button, ButtonGroup, Alert, Badge } from "react-bootstrap";
+import logo from "./logo.png";
 import "./App.css";
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
 function MainMenu({ setScreen }) {
   return (
     <div className="p-5 rounded-lg m-3">
-      <img src="%PUBLIC_URL%/logo.jpg" alt="App Logo" className="app-logo" />
+      <img src={logo} alt="App Logo" className="app-logo" />
       <h1 className="display-4">Hide n' Heat</h1>
       <p className="lead">Hide and seek with some twists!</p>
       <Button size='lg' variant="primary" onClick={() => setScreen("enterName")}>
