@@ -66,6 +66,12 @@ html, body {
   font-size: 24px;  /* adjust as needed */
 }
 
+.app-logo {
+  max-width: 300px; /* or whatever maximum width you'd like */
+  margin: 0 auto;
+  display: block;
+}
+
 
 
 

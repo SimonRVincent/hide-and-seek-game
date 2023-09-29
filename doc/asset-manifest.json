@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/hide-and-seek-game/static/css/main.3aabc504.css",
+    "main.js": "/hide-and-seek-game/static/js/main.7a7af854.js",
+    "static/js/787.a7a77a7f.chunk.js": "/hide-and-seek-game/static/js/787.a7a77a7f.chunk.js",
+    "index.html": "/hide-and-seek-game/index.html",
+    "main.3aabc504.css.map": "/hide-and-seek-game/static/css/main.3aabc504.css.map",
+    "main.7a7af854.js.map": "/hide-and-seek-game/static/js/main.7a7af854.js.map",
+    "787.a7a77a7f.chunk.js.map": "/hide-and-seek-game/static/js/787.a7a77a7f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3aabc504.css",
+    "static/js/main.7a7af854.js"
+  ]
+}
